@@ -24,7 +24,7 @@
    ```
    $LLVM_OBJECT_DIR=/your/llvm/object/path
    
-   $LLVM_OBJECT_DIR/bin/clang++ -emit-llvm main.cpp -S -o main.ll
+   $LLVM_OBJECT_DIR/bin/clang++ -g -emit-llvm main.cpp -S -o main.ll
    $LLVM_OBJECT_DIR/bin/opt -load $LLVM_OBJECT_DIR/lib/LLVMAddMetadataOnLoop.so -addmetadataonloop main.ll -S -o main-inst.ll
    ```
    
