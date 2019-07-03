@@ -76,7 +76,7 @@ bool AddMetadataOnLoop::runOnModule(Module &Mod){
       ScalarEvolution *SE = &getAnalysis<ScalarEvolutionWrapperPass>(Func).getSE();
 
       for(Loop* loop : LI->getLoopsInPreorder()){
-        myerrs() << "*** Add Matedata On Loop ***\n";
+        myerrs() << "*** Add Metadata On Loop ***\n";
 
         // FIX ME:
         // Try to get the step instruction for the current loop,
@@ -122,7 +122,7 @@ bool AddMetadataOnLoop::runOnModule(Module &Mod){
 char AddMetadataOnLoop::ID = 0;
 
 /*Register to "opt" */
-static RegisterPass<AddMetadataOnLoop> X("addmetadataonloop", "Add Matedata On Loop pass",                       false /* Only looks at CFG */,
+static RegisterPass<AddMetadataOnLoop> X("addmetadataonloop", "Add Metadata On Loop pass",                       false /* Only looks at CFG */,
                              false /* Analysis Pass */);  
 
 
