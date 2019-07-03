@@ -35,33 +35,33 @@ using namespace llvm;
 
 /*For reigister pass, then invoke through command option */
 // namespace llvm {
-//   ModulePass *createAddMatedataOnLoop();
+//   ModulePass *createAddMetadataOnLoop();
 // }
 void add_metadata(Module & Mod, Instruction & Inst);
 
 namespace {
 
-  struct AddMatedataOnLoop : public ModulePass{
+  struct AddMetadataOnLoop : public ModulePass{
     static char ID;
-    AddMatedataOnLoop() : ModulePass(ID) {}    
+    AddMetadataOnLoop() : ModulePass(ID) {}    
 
     virtual void getAnalysisUsage(AnalysisUsage& AU) const override;
 
     virtual bool runOnModule(Module &Mod) override;
 
-  };//end of struct AddMatedataOnLoop
+  };//end of struct AddMetadataOnLoop
 }//end of anonymous namespace
 
-void AddMatedataOnLoop::getAnalysisUsage(AnalysisUsage &AU) const {
+void AddMetadataOnLoop::getAnalysisUsage(AnalysisUsage &AU) const {
   AU.setPreservesCFG();
   AU.addRequired<LoopInfoWrapperPass>();
   AU.addRequired<DominatorTreeWrapperPass>();
   AU.addRequired<ScalarEvolutionWrapperPass>();
 }
 
-bool AddMatedataOnLoop::runOnModule(Module &Mod){
+bool AddMetadataOnLoop::runOnModule(Module &Mod){
 
-  errs() << "AddMatedataOnLoop: ";
+  errs() << "AddMetadataOnLoop: ";
   errs().write_escaped(Mod.getName()) << '\n';
 
   for(Function &Func : Mod){
@@ -119,10 +119,10 @@ bool AddMatedataOnLoop::runOnModule(Module &Mod){
   return false;     
 } 
 
-char AddMatedataOnLoop::ID = 0;
+char AddMetadataOnLoop::ID = 0;
 
 /*Register to "opt" */
-static RegisterPass<AddMatedataOnLoop> X("addmatedataonloop", "Add Matedata On Loop pass",                       false /* Only looks at CFG */,
+static RegisterPass<AddMetadataOnLoop> X("addmetadataonloop", "Add Matedata On Loop pass",                       false /* Only looks at CFG */,
                              false /* Analysis Pass */);  
 
 
