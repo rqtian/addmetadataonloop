@@ -18,6 +18,9 @@
   
 3. `cd` to `$TESTCODE_DIR`. 
    Suppose the current c++ file is `$TESTCODE_DIR/main.cpp`
+   
+   The original .ll filename: main.ll, The updated .ll filename:main-inst.ll, in which the metadata is added.
+   
    ```
    $LLVM_OBJECT_DIR=/your/llvm/object/path
    
