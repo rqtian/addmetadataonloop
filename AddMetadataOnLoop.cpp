@@ -81,16 +81,16 @@ bool AddMetadataOnLoop::runOnModule(Module &Mod){
         // FIX ME:
         // Try to get the step instruction for the current loop,
         // But failed when the induction variable is not PHINode
-        InductionDescriptor IndDesc;
-        if(loop->getInductionDescriptor(*SE, IndDesc)){;
-          Instruction *StepInst = IndDesc.getInductionBinOp();
-          myerrs() << "**** step Inst: " << *StepInst << "\n";
+//         InductionDescriptor IndDesc;
+//         if(loop->getInductionDescriptor(*SE, IndDesc)){;
+//           Instruction *StepInst = IndDesc.getInductionBinOp();
+//           myerrs() << "**** step Inst: " << *StepInst << "\n";
 
-          add_metadata(Mod, *(StepInst));
-        }
-        else{
-          myerrs() << "**** not found step Inst\n";
-        }
+//           add_metadata(Mod, *(StepInst));
+//         }
+//         else{
+//           myerrs() << "**** not found step Inst\n";
+//         }
 
         for(BasicBlock * blk : loop->getBlocks () ){
           for(Instruction & inst : *blk){
