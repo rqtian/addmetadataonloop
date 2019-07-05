@@ -5,7 +5,7 @@
 
 2.1 Add following code into lib/Transforms/AddMetadataOnLoop/CMakeLists.txt
   ```
-  add_llvm_library( LLVMAddMetadataOnLoop MODULE
+  add_llvm_loadable_module( LLVMAddMetadataOnLoop MODULE
     AddMetadataOnLoop.cpp
     PLUGIN_TOOL
     opt
