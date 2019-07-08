@@ -15,10 +15,6 @@
 #include "llvm/Analysis/LoopInfo.h"
 #include "llvm/Analysis/LoopPass.h"
 #include "llvm/IR/Dominators.h"
-#include "llvm/Analysis/ScalarEvolution.h"
-#include "llvm/Analysis/IVDescriptors.h"
-
-#include "llvm/IR/Value.h"
 
 #include <iostream>   
 #include <string> 
@@ -33,10 +29,6 @@
 
 using namespace llvm;
 
-/*For reigister pass, then invoke through command option */
-// namespace llvm {
-//   ModulePass *createAddMetadataOnLoop();
-// }
 void add_metadata(Module & Mod, Instruction & Inst);
 
 namespace {
@@ -56,7 +48,6 @@ void AddMetadataOnLoop::getAnalysisUsage(AnalysisUsage &AU) const {
   AU.setPreservesCFG();
   AU.addRequired<LoopInfoWrapperPass>();
   AU.addRequired<DominatorTreeWrapperPass>();
-  AU.addRequired<ScalarEvolutionWrapperPass>();
 }
 
 bool AddMetadataOnLoop::runOnModule(Module &Mod){
@@ -68,29 +59,12 @@ bool AddMetadataOnLoop::runOnModule(Module &Mod){
     if(! Func.empty ()){
       //Call LoopInfoWrapperPass to get the Loop in current Function
       //Call DominatorTreeWrapperPass to get the back edge infomation
-      //Call ScalarEvolutionWrapperPass, try to get the loop induction variable update instruction, i.e. step Instruction. note:Fail to get the information
-
-      // getAnalysis<DominatorTreeWrapperPass>(Func); 
+      
       LoopInfo* LI = &getAnalysis<LoopInfoWrapperPass>(Func).getLoopInfo();       
       DominatorTree *DT = &getAnalysis<DominatorTreeWrapperPass>(Func).getDomTree();
-      ScalarEvolution *SE = &getAnalysis<ScalarEvolutionWrapperPass>(Func).getSE();
 
       for(Loop* loop : LI->getLoopsInPreorder()){
         myerrs() << "*** Add Metadata On Loop ***\n";
-
-        // FIX ME:
-        // Try to get the step instruction for the current loop,
-        // But failed when the induction variable is not PHINode
-//         InductionDescriptor IndDesc;
-//         if(loop->getInductionDescriptor(*SE, IndDesc)){;
-//           Instruction *StepInst = IndDesc.getInductionBinOp();
-//           myerrs() << "**** step Inst: " << *StepInst << "\n";
-
-//           add_metadata(Mod, *(StepInst));
-//         }
-//         else{
-//           myerrs() << "**** not found step Inst\n";
-//         }
 
         for(BasicBlock * blk : loop->getBlocks () ){
           for(Instruction & inst : *blk){
